@@ -20,7 +20,7 @@ namespace TimeForChorein.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemEntry.ChoreList, (NavigationPage)Detail);
+            // MenuPages.Add((int)MenuItemEntry.ChoreList, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
