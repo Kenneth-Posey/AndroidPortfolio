@@ -13,7 +13,7 @@ namespace TimeForChorein.ViewModels
 {
     public class ChoreProgressPageViewModel : INotifyPropertyChanged
     {
-        public string Title { get; set; } = "Time for Chorein'";
+        public string Title { get; set; } = "Time for Chorin'";
         public SessionStatus ChoreSessionStatus { get; set; } = SessionStatus.NewSession;
         public int NumberOfSessionMinutes { get; set; } = 60;
         public string NumberOfSessionMinutesText { get; set; } = "Minutes for Chores:";
@@ -21,6 +21,10 @@ namespace TimeForChorein.ViewModels
         public string PauseSessionText { get; set; } = "Take a Breather";
         public string EndSessionText { get; set; } = "Finish Chorin'!";
         public string ContinueSessionText { get; set; } = "Back to Chorin'";
+
+        public bool NumberOfSessionMinutesLabelVisible { get; set; } = true;
+        public bool NumberOfSessionMinutesVisible { get; set; } = true;
+               
         private bool _startSessionVisible = true;
         public bool StartSessionVisible
         {
@@ -60,48 +64,52 @@ namespace TimeForChorein.ViewModels
                 execute: () =>
                 {
                     StartSession();
-                    RefreshCanExecutes();
+                    RefreshCanExecute();
                 },
                 canExecute: () =>
                 {
-                    return !ButtonLock;
+                    return true;
+                    // return ChoreSessionStatus == SessionStatus.NewSession | ChoreSessionStatus == SessionStatus.Paused;
                 });
 
             PauseSession_Clicked = new Command(
                 execute: () =>
                 {
                     PauseSession();
-                    RefreshCanExecutes();
+                    RefreshCanExecute();
                 },
                 canExecute: () =>
                 {
                     return true;
+                    // return ChoreSessionStatus == SessionStatus.InProgress;
                 });
 
             ContinueSession_Clicked = new Command(
                 execute: () =>
                 {
                     ContinueSession();
-                    RefreshCanExecutes();
+                    RefreshCanExecute();
                 },
                 canExecute: () =>
                 {
                     return true;
+                    // return ChoreSessionStatus == SessionStatus.Paused;
                 });
 
             EndSession_Clicked = new Command(
                 execute: () =>
                 {
                     EndSession();
-                    RefreshCanExecutes();
+                    RefreshCanExecute();
                 },
                 canExecute: () =>
                 {
                     return true;
+                    // return ChoreSessionStatus == SessionStatus.Paused | ChoreSessionStatus == SessionStatus.InProgress;
                 });
         }
 
-        private void RefreshCanExecutes()
+        private void RefreshCanExecute()
         {
             (StartSession_Clicked as Command).ChangeCanExecute();
             (PauseSession_Clicked as Command).ChangeCanExecute();
@@ -155,9 +163,6 @@ namespace TimeForChorein.ViewModels
                 case SessionStatus.Paused:
                     ContinueSessionVisible = true;
                     EndSessionVisible = true;
-                    break;
-                default:
-                    StartSessionVisible = true;
                     break;
             }
         }

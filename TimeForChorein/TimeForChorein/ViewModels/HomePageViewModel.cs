@@ -8,7 +8,7 @@ namespace TimeForChorein.ViewModels
     {
         public string AddChoreText { get; set; } = "Add New Chore";
         public string ChoreListText { get; set; } = "View Chore List";
-        public string StartChoreText { get; set; } = "Time for Chorein'";
+        public string StartChoreText { get; set; } = "Time for Chorin'";
 
         public string Title { get; set; } = "Home";
 

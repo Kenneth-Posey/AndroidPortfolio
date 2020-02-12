@@ -11,28 +11,38 @@
         <StackLayout>
             <Label x:Name="NumberOfSessionMinutesLabel"
                    Text="{Binding NumberOfSessionMinutesText}" 
+                   IsVisible="{Binding SessionMinutesLabelVisible}"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
             <Entry x:Name="NumberOfSessionMinutes"
-                   Text="{Binding NumberOfSessionMinutes}" 
+                   Text="{Binding NumberOfSessionMinutes}"
+                   IsVisible="{Binding SessionMinutesVisible}"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
             <Button x:Name="StartSessionButton"
                     Text="{Binding StartSessionText}"
                     IsVisible="{Binding StartSessionVisible}"
-                    Command="{Binding StartSession_Clicked}" />
+                    Command="{Binding StartSession_Clicked}"
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="Center" />
             <Button x:Name="PauseSessionButton"
                     Text="{Binding PauseSessionText}"
                     IsVisible="{Binding PauseSessionVisible}"
-                    Command="{Binding PauseSession_Clicked}" />
+                    Command="{Binding PauseSession_Clicked}" 
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center" />
             <Button x:Name="ContinueSessionButton"
                     Text="{Binding ContinueSessionText}"
                     IsVisible="{Binding ContinueSessionVisible}"
-                    Command="{Binding ContinueSession_Clicked}" />
+                    Command="{Binding ContinueSession_Clicked}" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="Center" />
             <Button x:Name="EndSessionButton" 
                     Text="{Binding EndSessionText}"
                     IsVisible="{Binding EndSessionVisible}"
-                    Command="{Binding EndSession_Clicked}" />
+                    Command="{Binding EndSession_Clicked}" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
