@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TimeForChorein.Enums;
 
 namespace TimeForChorein.Views
 {
@@ -20,8 +21,11 @@ namespace TimeForChorein.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" }
+                new HomeMenuItem {Id = MenuItemEntry.HomePage, Title="Home" },
+                new HomeMenuItem {Id = MenuItemEntry.ChoreList, Title="Chores" },
+                new HomeMenuItem {Id = MenuItemEntry.AddNewChore, Title="Add Chore" },
+                new HomeMenuItem {Id = MenuItemEntry.Settings, Title="Settings" },
+                new HomeMenuItem {Id = MenuItemEntry.About, Title="About" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

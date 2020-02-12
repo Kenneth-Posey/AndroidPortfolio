@@ -27,7 +27,7 @@ namespace TimeForChorein.Views
                 DateCreated = DateTime.Now,
                 DateLastModifed = DateTime.Now
             };
-
+            Title = "Add Chore";
             BindingContext = this;
         }
 
@@ -37,7 +37,7 @@ namespace TimeForChorein.Views
 
             viewModel = new EditChoreViewModel(choreId);
             viewModel.LoadItemCommand.Execute(choreId);
-
+            Title = "Edit Chore";
             BindingContext = viewModel;
         }
 

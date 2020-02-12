@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using TimeForChorein.Models;
+using TimeForChorein.Enums;
 
 namespace TimeForChorein.Views
 {
@@ -19,20 +20,29 @@ namespace TimeForChorein.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemEntry.ChoreList, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
         {
             if (!MenuPages.ContainsKey(id))
             {
-                switch (id)
+                switch ((MenuItemEntry)id)
                 {
-                    case (int)MenuItemType.Browse:
+                    case MenuItemEntry.HomePage:
+                        MenuPages.Add(id, new NavigationPage(new HomePage()));
+                        break;
+                    case MenuItemEntry.AddNewChore:
+                        MenuPages.Add(id, new NavigationPage(new EditChorePage()));
+                        break;
+                    case MenuItemEntry.ChoreList:
                         MenuPages.Add(id, new NavigationPage(new ChoreListPage()));
                         break;
-                    case (int)MenuItemType.About:
+                    case MenuItemEntry.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        break;
+                    case MenuItemEntry.Settings:
+                        MenuPages.Add(id, new NavigationPage(new SettingsPage()));
                         break;
                 }
             }

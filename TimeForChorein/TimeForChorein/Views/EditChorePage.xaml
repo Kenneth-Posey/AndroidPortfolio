@@ -6,9 +6,8 @@
              xmlns:controls="clr-namespace:TimeForChorein.Utility"
 	         xmlns:enums="clr-namespace:TimeForChorein.Enums"	
              mc:Ignorable="d"
-             x:Class="TimeForChorein.Views.EditChorePage"
-             Title="Edit Item">
-    
+             x:Class="TimeForChorein.Views.EditChorePage">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
