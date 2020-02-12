@@ -4,12 +4,25 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="TimeForChorein.Views.HomePage">
+             x:Class="TimeForChorein.Views.HomePage"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            <Button />
-            <Button />
-            <Button />
+            <Button x:Name="AddChoreButton"
+                    Text="{Binding AddChoreText}"
+                    Margin="15,0"
+                    Clicked="AddChoreButton_Clicked"
+                HorizontalOptions="FillAndExpand" />
+            <Button x:Name="ChoreListButton"
+                    Text="{Binding ChoreListText}"
+                    Margin="15,0"
+                    Clicked="ChoreListButton_Clicked"
+                HorizontalOptions="FillAndExpand" />
+            <Button x:Name="StartChoreButton"
+                    Text="{Binding StartChoreText}"
+                    Margin="15,0"
+                    Clicked="StartChoreButton_Clicked"
+                HorizontalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

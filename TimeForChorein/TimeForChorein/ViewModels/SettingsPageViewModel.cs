@@ -4,7 +4,11 @@ using System.Text;
 
 namespace TimeForChorein.ViewModels
 {
-    class HomePageViewModel
+    public class SettingsPageViewModel
     {
+        public SettingsPageViewModel()
+        {
+
+        }
     }
 }

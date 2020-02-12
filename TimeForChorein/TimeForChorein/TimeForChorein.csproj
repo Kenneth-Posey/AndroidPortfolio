@@ -23,13 +23,16 @@
     <Compile Update="Views\ChoreDetailPage.xaml.cs">
       <DependentUpon>ChoreDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ChoreProgressPage.xaml.cs">
+      <DependentUpon>ChoreProgressPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\EditChorePage.xaml.cs">
       <DependentUpon>EditChorePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ChoreProgress.xaml">
+    <EmbeddedResource Update="Views\ChoreProgressPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HomePage.xaml">
