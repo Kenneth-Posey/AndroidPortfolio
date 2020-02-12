@@ -19,8 +19,6 @@ namespace TimeForChorein.Views
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
-
-            // MenuPages.Add((int)MenuItemEntry.ChoreList, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -32,17 +30,17 @@ namespace TimeForChorein.Views
                     case MenuItemEntry.HomePage:
                         MenuPages.Add(id, new NavigationPage(new HomePage()));
                         break;
-                    case MenuItemEntry.AddNewChore:
-                        MenuPages.Add(id, new NavigationPage(new EditChorePage()));
-                        break;
                     case MenuItemEntry.ChoreList:
                         MenuPages.Add(id, new NavigationPage(new ChoreListPage()));
                         break;
-                    case MenuItemEntry.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    case MenuItemEntry.AddNewChore:
+                        MenuPages.Add(id, new NavigationPage(new EditChorePage()));
                         break;
                     case MenuItemEntry.Settings:
                         MenuPages.Add(id, new NavigationPage(new SettingsPage()));
+                        break;
+                    case MenuItemEntry.About:
+                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
                 }
             }

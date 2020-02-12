@@ -5,10 +5,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="TimeForChorein.Views.ChoreProgressPage"
+             x:Name="Root"
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout>
-            
+            <Label x:Name="NumberOfSessionMinutesLabel"
+                   Text="{Binding NumberOfSessionMinutesText}" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Entry x:Name="NumberOfSessionMinutes"
+                   Text="{Binding NumberOfSessionMinutes}" 
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+            <Button x:Name="StartSessionButton"
+                    Text="{Binding StartSessionText}"
+                    IsVisible="{Binding StartSessionVisible}"
+                    Command="{Binding StartSession_Clicked}" />
+            <Button x:Name="PauseSessionButton"
+                    Text="{Binding PauseSessionText}"
+                    IsVisible="{Binding PauseSessionVisible}"
+                    Command="{Binding PauseSession_Clicked}" />
+            <Button x:Name="ContinueSessionButton"
+                    Text="{Binding ContinueSessionText}"
+                    IsVisible="{Binding ContinueSessionVisible}"
+                    Command="{Binding ContinueSession_Clicked}" />
+            <Button x:Name="EndSessionButton" 
+                    Text="{Binding EndSessionText}"
+                    IsVisible="{Binding EndSessionVisible}"
+                    Command="{Binding EndSession_Clicked}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
