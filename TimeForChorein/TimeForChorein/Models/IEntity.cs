@@ -6,6 +6,6 @@ namespace TimeForChorein.Models
 {
     public interface IEntity
     {
-        int GetId();
+        int? GetId();
     }
 }

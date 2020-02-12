@@ -5,13 +5,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="TimeForChorein.Views.ChoreDetailPage"
+             xmlns:utility="clr-namespace:TimeForChorein.Utility"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utility:ToStringConverter x:Key="ToString" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Clicked="DeleteItem_Clicked" />
+        <ToolbarItem Text="Edit" Clicked="EditItem_Clicked" />
+    </ContentPage.ToolbarItems>
+    
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Small"/>
+        <Label Text="Chore Name:" FontSize="Medium" />
+        <Label Text="{Binding Chore.Name}" d:Text="Chore name" FontSize="Small"/>
+        <Label Text="Chore Priority:" FontSize="Medium"/>
+        <Label Text="{Binding Path=Chore.ChorePriority, Converter={x:StaticResource ToString}}" 
+               d:Text="Chore Priority" FontSize="Small"/>
+        <Label Text="Minimum Minutes" FontSize="Medium"/>
+        <Label Text="{Binding Chore.MinimumMinutes}" />
+        <Label Text="Maximum Minutes" FontSize="Medium"/>
+        <Label Text="{Binding Chore.MaximumMinutes}" />
         <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" d:Text="Item description" FontSize="Small"/>
+        <Label Text="{Binding Chore.Description}" d:Text="Item description" FontSize="Small"/>
     </StackLayout>
     
 </ContentPage>

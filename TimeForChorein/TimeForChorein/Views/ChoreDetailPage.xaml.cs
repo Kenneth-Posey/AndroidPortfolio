@@ -20,17 +20,15 @@ namespace TimeForChorein.Views
             BindingContext = this.viewModel = viewModel;
         }
 
-        public ChoreDetailPage()
+        async void EditItem_Clicked(object sender, EventArgs e)
         {
-            InitializeComponent();
+            await Navigation.PushModalAsync(new NavigationPage(new EditChorePage(viewModel.Chore.ChoreId)));
+        }
 
-            var item = new Chore
-            {
-
-            };
-
-            viewModel = new ChoreDetailViewModel(item);
-            BindingContext = viewModel;
+        async void DeleteItem_Clicked(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "DeleteChore", viewModel.Chore);
+            await Navigation.PopToRootAsync();
         }
     }
 }

@@ -17,15 +17,22 @@ namespace TimeForChorein.ViewModels
 
         public ChoreListViewModel()
         {
-            Title = "Browse";
+            Title = "Chore List";
             Items = new ObservableCollection<Chore>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewChorePage, Chore>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<EditChorePage, Chore>(this, "SaveChore", async (obj, item) =>
             {
                 var newItem = item as Chore;
                 Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+                await _choreService.Save(newItem);
+            });
+
+            MessagingCenter.Subscribe<ChoreDetailPage, Chore>(this, "DeleteChore", async (obj, item) =>
+            {
+                var newItem = item as Chore;
+                Items.Remove(newItem);
+                await _choreService.Delete(newItem);
             });
         }
 
@@ -39,11 +46,14 @@ namespace TimeForChorein.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+
+                var items = await _choreService.GetAllChores();
                 foreach (var item in items)
                 {
-                    Items.Add(item);
+                    Items.Add(item as Chore);
                 }
+
+                IsBusy = false;
             }
             catch (Exception ex)
             {

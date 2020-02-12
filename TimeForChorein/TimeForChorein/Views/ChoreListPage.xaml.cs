@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 using TimeForChorein.Models;
 using TimeForChorein.Views;
 using TimeForChorein.ViewModels;
@@ -27,6 +26,9 @@ namespace TimeForChorein.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
+            if (args?.SelectedItem == null)
+                return;
+
             var item = args.SelectedItem as Chore;
             if (item == null)
                 return;
@@ -34,12 +36,12 @@ namespace TimeForChorein.Views
             await Navigation.PushAsync(new ChoreDetailPage(new ChoreDetailViewModel(item)));
 
             // Manually deselect item.
-            ItemsListView.SelectedItem = null;
+            ChoreListView.SelectedItem = null;
         }
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewChorePage()));
+            await Navigation.PushModalAsync(new NavigationPage(new EditChorePage()));
         }
 
         protected override void OnAppearing()
@@ -49,5 +51,6 @@ namespace TimeForChorein.Views
             if (viewModel.Items.Count == 0)
                 viewModel.LoadItemsCommand.Execute(null);
         }
+
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TimeForChorein.Models.IModel
 {
-    interface IChore : IEntity
+    public interface IChore : IEntity
     {
-
+        int? GetId();
     }
 }

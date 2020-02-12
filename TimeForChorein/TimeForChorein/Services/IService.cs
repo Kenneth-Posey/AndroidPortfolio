@@ -6,7 +6,7 @@ namespace TimeForChorein.Services
     public interface IService<T>
         where T : IEntity
     {
-        Task<T> GetById(int id);
+        Task<T> GetById(int? id);
 
         Task<int> Save(T entity);
 

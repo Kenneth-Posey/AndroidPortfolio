@@ -13,36 +13,26 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
-        <ListView x:Name="ItemsListView"
+        <ListView x:Name="ChoreListView"
                 ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                IsPullToRefreshEnabled="false"
+                IsRefreshing="{Binding IsBusy, Mode=OneWayToSource}"
                 CachingStrategy="RecycleElement"
                 ItemSelected="OnItemSelected">
-            <d:ListView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>First Item</x:String>
-                    <x:String>Second Item</x:String>
-                    <x:String>Third Item</x:String>
-                    <x:String>Fourth Item</x:String>
-                    <x:String>Fifth Item</x:String>
-                    <x:String>Sixth Item</x:String>
-                </x:Array>
-            </d:ListView.ItemsSource>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="10">
-                            <Label Text="{Binding Text}" 
-                                d:Text="{Binding .}"
+                            <Label Text="{Binding Name}" 
+                                d:Text="Chore Name"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="16" />
                             <Label Text="{Binding Description}" 
-                                d:Text="Item descripton"
+                                d:Text="Chore descripton"
                                 LineBreakMode="NoWrap"
                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                 FontSize="13" />

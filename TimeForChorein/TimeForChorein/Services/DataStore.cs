@@ -17,5 +17,10 @@ namespace TimeForChorein.Services
             // CreateTableAsync does not recreate the table if it exists
             _database.CreateTableAsync<Chore>();
         }
+
+        public SQLiteAsyncConnection GetConnection()
+        {
+            return _database;
+        }
     }
 }

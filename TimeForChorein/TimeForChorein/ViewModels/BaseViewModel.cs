@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
 using TimeForChorein.Models;
 using TimeForChorein.Services;
 
@@ -12,7 +10,7 @@ namespace TimeForChorein.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Chore> DataStore => DependencyService.Get<IDataStore<Chore>>() ?? new MockDataStore();
+        public ChoreService _choreService => DependencyService.Get<ChoreService>();
 
         bool isBusy = false;
         public bool IsBusy
