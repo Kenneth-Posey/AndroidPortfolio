@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Text;
 using System.Timers;
 using System.Windows.Input;
 using TimeForChorein.Enums;
+using TimeForChorein.Models;
 using TimeForChorein.Models.IModel;
 using Xamarin.Forms;
 
 namespace TimeForChorein.ViewModels
 {
-    public class ChoreProgressPageViewModel : INotifyPropertyChanged
+    public class ChoreProgressPageViewModel : BaseViewModel, INotifyPropertyChanged
     {
         public string Title { get; set; } = "Time for Chorin'";
         public SessionStatus ChoreSessionStatus { get; set; } = SessionStatus.NewSession;
@@ -22,8 +24,9 @@ namespace TimeForChorein.ViewModels
         public string PauseSessionText { get; set; } = "Take a Breather";
         public string EndSessionText { get; set; } = "Finish Chorin'!";
         public string ContinueSessionText { get; set; } = "Back to Chorin'";
-        public string FinishCurrentChoreText { get; set; } = "Finish Current Chore";
+        public string FinishChoreButtonText { get; set; } = "Finish Current Chore";
 
+        #region INotify Properties
         private bool _numberOfSessionMinutesLabelVisible = true;
         public bool SessionMinutesLabelVisible
         {
@@ -76,13 +79,6 @@ namespace TimeForChorein.ViewModels
             set { SetProperty(ref _timerValueVisible, value); }
         }
 
-        private string _currentChoreName = string.Empty;
-        public string CurrentChoreName
-        {
-            get { return _currentChoreName; }
-            set { SetProperty(ref _currentChoreName, value); }
-        }
-
         private bool _currentChoreNameVisible = false;
         public bool CurrentChoreNameVisible
         {
@@ -91,29 +87,35 @@ namespace TimeForChorein.ViewModels
         }
 
         private bool _finishCurrentChoreButtonVisible = false;
-        public bool FinishCurrentChoreButtonVisible
+        public bool FinishChoreButtonVisible
         {
             get { return _finishCurrentChoreButtonVisible; }
             set { SetProperty(ref _finishCurrentChoreButtonVisible, value); }
         }
 
-        public ObservableCollection<IChore> Chores { get; set; } = new ObservableCollection<IChore>();
-
-        private Timer _choretimer;
-        public Timer ChoreTimer
+        private Chore _currentChore;
+        public Chore CurrentChore
         {
-            get; set;
+            get { return _currentChore; }
+            set { SetProperty(ref _currentChore, value); }
         }
+
+        #endregion
+
+        public List<Chore> ChoreList { get; set; } = new List<Chore>();
+
+        private Timer ChoreTimer { get; set; }
 
         public ICommand StartSession_Clicked { private set; get; }
         public ICommand PauseSession_Clicked { private set; get; }
         public ICommand EndSession_Clicked { private set; get; }
         public ICommand ContinueSession_Clicked { private set; get; }
+        public ICommand FinishCurrentChore_Clicked { private set; get; }
 
         private bool ButtonLock { get; set; } = false;
 
         private int TimeRemaining { get; set; }
-
+               
         public ChoreProgressPageViewModel()
         {
             StartSession_Clicked = new Command(
@@ -159,6 +161,25 @@ namespace TimeForChorein.ViewModels
                 {
                     return ChoreSessionStatus == SessionStatus.Paused || ChoreSessionStatus == SessionStatus.InProgress;
                 });
+
+            FinishCurrentChore_Clicked = new Command(
+                execute: () =>
+                {
+                    ChoreList.Remove(CurrentChore);
+                    CurrentChore.ChoreStatus = ChoreStatus.Completed;
+                    _choreService.Save(CurrentChore);
+
+                    if (ChoreList.Count > 1)
+                        CurrentChore = ChoreList[0];
+                    else
+                    {
+                        // trigger finishing all chores here
+                    }
+                },
+                canExecute: () =>
+                {
+                    return true;
+                });
         }
 
         private void RefreshCanExecute()
@@ -185,7 +206,29 @@ namespace TimeForChorein.ViewModels
 
             TimerValue = "Chorin' Time Left " + TimeSpan.FromSeconds(TimeRemaining).ToString("t");
             TimerValueVisible = true;
-            FinishCurrentChoreButtonVisible = true;
+            FinishChoreButtonVisible = true;
+            CurrentChoreNameVisible = true;
+
+            var allChores = _choreService.GetAllChoresNoAsync() as List<Chore>;
+            var choreStillAvailable = true;
+            var minutesRemaining = NumberOfSessionMinutes;
+
+            do
+            {
+                var addChore = allChores.Where(x => x.MaximumMinutes < minutesRemaining)
+                                        .Where(x => ChoreList.Contains(x) == false)
+                                        .OrderByDescending(x => x.MaximumMinutes)
+                                        .FirstOrDefault();
+                if (addChore != null)
+                {
+                    minutesRemaining -= addChore.MaximumMinutes;
+                    ChoreList.Add(addChore);
+                }
+                else
+                {
+                    choreStillAvailable = false;
+                }
+            } while (choreStillAvailable);
 
             UpdateCurrentChore();
             UpdateSessionButtons();
@@ -193,13 +236,13 @@ namespace TimeForChorein.ViewModels
 
         private void ChoreTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            TimerValue = TimeSpan.FromSeconds(TimeRemaining).ToString("t");
+            TimerValue = "Chorin' Time Left " + TimeSpan.FromSeconds(TimeRemaining).ToString("t");
             TimeRemaining -= 1;
         }
 
         private void UpdateCurrentChore()
         {
-
+            CurrentChore = ChoreList.FirstOrDefault();        
         }
 
         private void PauseSession()

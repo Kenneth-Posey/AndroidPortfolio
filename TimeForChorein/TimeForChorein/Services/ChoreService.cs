@@ -28,6 +28,11 @@ namespace TimeForChorein.Services
             return await _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != Enums.ChoreStatus.Deleted).ToListAsync();
         }
 
+        public IEnumerable<IChore> GetAllChoresNoAsync()
+        {
+            return _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != Enums.ChoreStatus.Deleted).ToListAsync().Result;
+        }
+
         public async Task<IChore> Get(IQueryable query)
         {
             return await _dataConnection.GetAsync<Chore>(query);
