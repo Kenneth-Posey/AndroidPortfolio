@@ -47,9 +47,21 @@
             <Label x:Name="TimerLabel"
                    Text="{Binding TimerValue}"
                    IsVisible="{Binding TimerValueVisible}"
-                   HorizontalOptions="FillAndExpand"
-                   VerticalOptions="Center" 
-                   FontSize="Large" />
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="Title" />
+            <Label x:Name="CurrentChoreNameLabel"
+                   Text="{Binding CurrentChoreName}"
+                   IsVisible="{Binding CurrentChoreNameVisible}"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="Title"/>
+            <Button x:Name="FinishChoreButton"
+                    Text="{Binding FinishChoreButtonText}"
+                    Command="{Binding FinishCurrentChore_Click}"
+                    IsVisible="{Binding FinishChoreButtonVisible}"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="Center" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

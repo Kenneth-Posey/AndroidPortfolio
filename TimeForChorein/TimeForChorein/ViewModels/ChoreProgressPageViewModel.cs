@@ -22,6 +22,7 @@ namespace TimeForChorein.ViewModels
         public string PauseSessionText { get; set; } = "Take a Breather";
         public string EndSessionText { get; set; } = "Finish Chorin'!";
         public string ContinueSessionText { get; set; } = "Back to Chorin'";
+        public string FinishCurrentChoreText { get; set; } = "Finish Current Chore";
 
         private bool _numberOfSessionMinutesLabelVisible = true;
         public bool SessionMinutesLabelVisible
@@ -73,6 +74,27 @@ namespace TimeForChorein.ViewModels
         {
             get { return _timerValueVisible; }
             set { SetProperty(ref _timerValueVisible, value); }
+        }
+
+        private string _currentChoreName = string.Empty;
+        public string CurrentChoreName
+        {
+            get { return _currentChoreName; }
+            set { SetProperty(ref _currentChoreName, value); }
+        }
+
+        private bool _currentChoreNameVisible = false;
+        public bool CurrentChoreNameVisible
+        {
+            get { return _currentChoreNameVisible; }
+            set { SetProperty(ref _currentChoreNameVisible, value); }
+        }
+
+        private bool _finishCurrentChoreButtonVisible = false;
+        public bool FinishCurrentChoreButtonVisible
+        {
+            get { return _finishCurrentChoreButtonVisible; }
+            set { SetProperty(ref _finishCurrentChoreButtonVisible, value); }
         }
 
         public ObservableCollection<IChore> Chores { get; set; } = new ObservableCollection<IChore>();
@@ -161,9 +183,11 @@ namespace TimeForChorein.ViewModels
             ChoreTimer.Elapsed += ChoreTimer_Elapsed;
             ChoreTimer.Start();
 
-            TimerValue = TimeSpan.FromSeconds(TimeRemaining).ToString("t");
+            TimerValue = "Chorin' Time Left " + TimeSpan.FromSeconds(TimeRemaining).ToString("t");
             TimerValueVisible = true;
+            FinishCurrentChoreButtonVisible = true;
 
+            UpdateCurrentChore();
             UpdateSessionButtons();
         }
 
@@ -171,6 +195,11 @@ namespace TimeForChorein.ViewModels
         {
             TimerValue = TimeSpan.FromSeconds(TimeRemaining).ToString("t");
             TimeRemaining -= 1;
+        }
+
+        private void UpdateCurrentChore()
+        {
+
         }
 
         private void PauseSession()
