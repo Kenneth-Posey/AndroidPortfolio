@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Timers;
 using System.Windows.Input;
 using TimeForChorein.Enums;
 using TimeForChorein.Models.IModel;
@@ -22,8 +23,18 @@ namespace TimeForChorein.ViewModels
         public string EndSessionText { get; set; } = "Finish Chorin'!";
         public string ContinueSessionText { get; set; } = "Back to Chorin'";
 
-        public bool NumberOfSessionMinutesLabelVisible { get; set; } = true;
-        public bool NumberOfSessionMinutesVisible { get; set; } = true;
+        private bool _numberOfSessionMinutesLabelVisible = true;
+        public bool SessionMinutesLabelVisible
+        {
+            get { return _numberOfSessionMinutesLabelVisible; }
+            set { SetProperty(ref _numberOfSessionMinutesLabelVisible, value); }
+        }
+        private bool _numberOfSessionMinutesVisible = true;
+        public bool SessionMinutesVisible
+        {
+            get { return _numberOfSessionMinutesVisible; }
+            set { SetProperty(ref _numberOfSessionMinutesVisible, value); }
+        }
                
         private bool _startSessionVisible = true;
         public bool StartSessionVisible
@@ -50,7 +61,27 @@ namespace TimeForChorein.ViewModels
             set { SetProperty(ref _endSessionVisible, value); }
         }
 
+        private string _timerValue = "00:00";
+        public string TimerValue
+        {
+            get { return _timerValue; }
+            set { SetProperty(ref _timerValue, value); }
+        }
+
+        private bool _timerValueVisible = false;
+        public bool TimerValueVisible
+        {
+            get { return _timerValueVisible; }
+            set { SetProperty(ref _timerValueVisible, value); }
+        }
+
         public ObservableCollection<IChore> Chores { get; set; } = new ObservableCollection<IChore>();
+
+        private Timer _choretimer;
+        public Timer ChoreTimer
+        {
+            get; set;
+        }
 
         public ICommand StartSession_Clicked { private set; get; }
         public ICommand PauseSession_Clicked { private set; get; }
@@ -58,6 +89,9 @@ namespace TimeForChorein.ViewModels
         public ICommand ContinueSession_Clicked { private set; get; }
 
         private bool ButtonLock { get; set; } = false;
+
+        private int TimeRemaining { get; set; }
+
         public ChoreProgressPageViewModel()
         {
             StartSession_Clicked = new Command(
@@ -68,8 +102,7 @@ namespace TimeForChorein.ViewModels
                 },
                 canExecute: () =>
                 {
-                    return true;
-                    // return ChoreSessionStatus == SessionStatus.NewSession | ChoreSessionStatus == SessionStatus.Paused;
+                    return ChoreSessionStatus == SessionStatus.NewSession;
                 });
 
             PauseSession_Clicked = new Command(
@@ -80,8 +113,7 @@ namespace TimeForChorein.ViewModels
                 },
                 canExecute: () =>
                 {
-                    return true;
-                    // return ChoreSessionStatus == SessionStatus.InProgress;
+                    return ChoreSessionStatus == SessionStatus.InProgress;
                 });
 
             ContinueSession_Clicked = new Command(
@@ -92,8 +124,7 @@ namespace TimeForChorein.ViewModels
                 },
                 canExecute: () =>
                 {
-                    return true;
-                    // return ChoreSessionStatus == SessionStatus.Paused;
+                    return ChoreSessionStatus == SessionStatus.Paused;
                 });
 
             EndSession_Clicked = new Command(
@@ -104,8 +135,7 @@ namespace TimeForChorein.ViewModels
                 },
                 canExecute: () =>
                 {
-                    return true;
-                    // return ChoreSessionStatus == SessionStatus.Paused | ChoreSessionStatus == SessionStatus.InProgress;
+                    return ChoreSessionStatus == SessionStatus.Paused || ChoreSessionStatus == SessionStatus.InProgress;
                 });
         }
 
@@ -122,23 +152,45 @@ namespace TimeForChorein.ViewModels
         private void StartSession()
         {
             ChoreSessionStatus = SessionStatus.InProgress;
-            UpdateSessionButtons();
-        }
-        private void PauseSession()
-        {
-            ChoreSessionStatus = SessionStatus.Paused;
+            SessionMinutesLabelVisible = false;
+            SessionMinutesVisible = false;
+            
+            TimeRemaining = NumberOfSessionMinutes * 60;
+            ChoreTimer = new Timer(NumberOfSessionMinutes * 60 * 1000);
+            ChoreTimer.Interval = 1000;
+            ChoreTimer.Elapsed += ChoreTimer_Elapsed;
+            ChoreTimer.Start();
+
+            TimerValue = TimeSpan.FromSeconds(TimeRemaining).ToString("t");
+            TimerValueVisible = true;
+
             UpdateSessionButtons();
         }
 
-        private void EndSession()
+        private void ChoreTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ChoreSessionStatus = SessionStatus.Complete;
+            TimerValue = TimeSpan.FromSeconds(TimeRemaining).ToString("t");
+            TimeRemaining -= 1;
+        }
+
+        private void PauseSession()
+        {
+            ChoreSessionStatus = SessionStatus.Paused;
+            ChoreTimer.Stop();
             UpdateSessionButtons();
         }
 
         private void ContinueSession()
         {
             ChoreSessionStatus = SessionStatus.InProgress;
+            ChoreTimer.Start();
+            UpdateSessionButtons();
+        }
+
+        private void EndSession()
+        {
+            ChoreSessionStatus = SessionStatus.Complete;
+            ChoreTimer.Stop();
             UpdateSessionButtons();
         }
 
@@ -152,7 +204,6 @@ namespace TimeForChorein.ViewModels
 
             switch (ChoreSessionStatus)
             {
-                // same as default but this is more explicit about the logic
                 case SessionStatus.NewSession:
                     StartSessionVisible = true;
                     break;

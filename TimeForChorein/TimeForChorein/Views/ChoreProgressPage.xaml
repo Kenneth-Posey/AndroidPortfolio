@@ -17,32 +17,39 @@
             <Entry x:Name="NumberOfSessionMinutes"
                    Text="{Binding NumberOfSessionMinutes}"
                    IsVisible="{Binding SessionMinutesVisible}"
+                   IsEnabled="{Binding SessionMinutesVisible}"
                    VerticalOptions="Center"
                    HorizontalOptions="Center" />
             <Button x:Name="StartSessionButton"
                     Text="{Binding StartSessionText}"
-                    IsVisible="{Binding StartSessionVisible}"
                     Command="{Binding StartSession_Clicked}"
+                    IsEnabled="{Binding StartSessionVisible}"
                     HorizontalOptions="FillAndExpand" 
                     VerticalOptions="Center" />
             <Button x:Name="PauseSessionButton"
                     Text="{Binding PauseSessionText}"
-                    IsVisible="{Binding PauseSessionVisible}"
                     Command="{Binding PauseSession_Clicked}" 
+                    IsEnabled="{Binding PauseSessionVisible}"
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="Center" />
             <Button x:Name="ContinueSessionButton"
                     Text="{Binding ContinueSessionText}"
-                    IsVisible="{Binding ContinueSessionVisible}"
                     Command="{Binding ContinueSession_Clicked}" 
+                    IsEnabled="{Binding ContinueSessionVisible}"
                     HorizontalOptions="FillAndExpand" 
                     VerticalOptions="Center" />
             <Button x:Name="EndSessionButton" 
                     Text="{Binding EndSessionText}"
-                    IsVisible="{Binding EndSessionVisible}"
                     Command="{Binding EndSession_Clicked}" 
+                    IsEnabled="{Binding EndSessionVisible}"
                     HorizontalOptions="FillAndExpand" 
                     VerticalOptions="Center" />
+            <Label x:Name="TimerLabel"
+                   Text="{Binding TimerValue}"
+                   IsVisible="{Binding TimerValueVisible}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" 
+                   FontSize="Large" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
