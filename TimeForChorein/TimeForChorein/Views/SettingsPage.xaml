@@ -7,9 +7,16 @@
              x:Class="TimeForChorein.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Populate mock data"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="Large" />
+            <Button x:Name="PopulateDataButton"
+                    Command="{Binding PopulateDataButton_Clicked}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding PopulateDataButtonText}" />
+            <Label Text="{Binding UpdateMessage}"                   
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="Large"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
