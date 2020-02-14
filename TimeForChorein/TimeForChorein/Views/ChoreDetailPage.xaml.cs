@@ -22,8 +22,7 @@ namespace TimeForChorein.Views
 
         async void EditItem_Clicked(object sender, EventArgs e)
         {
-            var editChorePage = new EditChorePage(viewModel.Chore.ChoreId);
-            await Navigation.PushModalAsync(new NavigationPage(editChorePage));
+            await Navigation.PushModalAsync(new NavigationPage(new EditChorePage(viewModel.Chore)));
         }
 
         async void DeleteItem_Clicked(object sender, EventArgs e)

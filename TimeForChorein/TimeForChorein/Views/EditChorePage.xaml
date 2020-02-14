@@ -20,19 +20,12 @@
             <Label Text="Chore Priority" FontSize="Medium" />
             <controls:EnumBindablePicker x:TypeArguments="enums:ChorePriority" 
                                          SelectedItem="{Binding Chore.ChorePriority}" />
-            <Label Text="{Binding Source={x:Reference MinimumSlider}, Path=Value,
-                          StringFormat='Minimum Minutes: {0:F0}'}" FontSize="Medium" 
+            <Label Text="{Binding Source={x:Reference MinuteSlider}, Path=Value,
+                          StringFormat='Task Minutes: {0:F0}'}" FontSize="Medium" 
                    HorizontalOptions="FillAndExpand" />
-            <Slider Value="{Binding Chore.MinimumMinutes}" 
+            <Slider Value="{Binding Chore.Minutes}" 
                     HorizontalOptions="FillAndExpand" 
-                    x:Name="MinimumSlider"
-                    Minimum="0" Maximum="60" />
-            <Label Text="{Binding Source={x:Reference MaximumSlider}, Path=Value,
-                          StringFormat='Maximum Minutes: {0:F0}'}" FontSize="Medium" 
-                   HorizontalOptions="FillAndExpand" />
-            <Slider Value="{Binding Chore.MaximumMinutes}" 
-                    HorizontalOptions="FillAndExpand" 
-                    x:Name="MaximumSlider"
+                    x:Name="MinuteSlider"
                     Minimum="0" Maximum="60" />
             <Label Text="Description" FontSize="Medium" />
             <Editor Text="{Binding Chore.Description}" d:Text="Details about the chore" 

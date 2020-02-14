@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TimeForChorein.Models;
 using TimeForChorein.Models.IModel;
 using TimeForChorein.Views;
@@ -11,8 +12,14 @@ namespace TimeForChorein.ViewModels
 {
     public partial class EditChoreViewModel : BaseViewModel
     {
-        public Chore Chore { get; set; }
-        public Command LoadItemCommand { get; set; }
+        private Chore _chore;
+        public Chore Chore
+        {
+            get { return _chore; }
+            set { SetProperty(ref _chore, value); }
+        }
+
+        public ICommand LoadItemCommand { private set; get; }
 
         public EditChoreViewModel()
         {
@@ -21,18 +28,13 @@ namespace TimeForChorein.ViewModels
                 DateCreated = DateTime.Now,
                 DateLastModifed = DateTime.Now
             };
+
         }
 
-        public EditChoreViewModel(int? choreId)
+        public EditChoreViewModel(Chore chore)
         {
-            LoadItemCommand = new Command(async () => await ExecuteLoadItemCommand(choreId));
+            Chore = chore;
         }
 
-        public async Task ExecuteLoadItemCommand(int? choreId)
-        {
-            // wait to load the task so the data is inserted into the editor correctly
-            Task<IChore> choreTask = _choreService.GetById(choreId);
-            Chore = choreTask.Result as Chore;
-        }
     }
 }

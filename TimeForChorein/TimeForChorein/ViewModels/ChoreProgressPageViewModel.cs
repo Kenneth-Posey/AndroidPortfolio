@@ -14,9 +14,8 @@ using Xamarin.Forms;
 
 namespace TimeForChorein.ViewModels
 {
-    public class ChoreProgressPageViewModel : BaseViewModel, INotifyPropertyChanged
+    public class ChoreProgressPageViewModel : BaseViewModel
     {
-        public string Title { get; set; } = "Time for Chorin'";
         public SessionStatus ChoreSessionStatus { get; set; } = SessionStatus.NewSession;
         public int NumberOfSessionMinutes { get; set; } = 60;
         public string NumberOfSessionMinutesText { get; set; } = "Minutes for Chores:";
@@ -118,6 +117,8 @@ namespace TimeForChorein.ViewModels
                
         public ChoreProgressPageViewModel()
         {
+            Title = "Time for Chorin'";
+
             StartSession_Clicked = new Command(
                 execute: () =>
                 {
@@ -215,13 +216,13 @@ namespace TimeForChorein.ViewModels
 
             do
             {
-                var addChore = allChores.Where(x => x.MaximumMinutes < minutesRemaining)
+                var addChore = allChores.Where(x => x.Minutes < minutesRemaining)
                                         .Where(x => ChoreList.Contains(x) == false)
-                                        .OrderByDescending(x => x.MaximumMinutes)
+                                        .OrderByDescending(x => x.Minutes)
                                         .FirstOrDefault();
                 if (addChore != null)
                 {
-                    minutesRemaining -= addChore.MaximumMinutes;
+                    minutesRemaining -= addChore.Minutes;
                     ChoreList.Add(addChore);
                 }
                 else
@@ -290,19 +291,5 @@ namespace TimeForChorein.ViewModels
             }
         }
 
-        bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (Object.Equals(storage, value))
-                return false;
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

@@ -25,10 +25,8 @@
         <Label Text="Chore Priority:" FontSize="Medium"/>
         <Label Text="{Binding Path=Chore.ChorePriority, Converter={x:StaticResource ToString}}" 
                d:Text="Chore Priority" FontSize="Small"/>
-        <Label Text="Minimum Minutes" FontSize="Medium"/>
-        <Label Text="{Binding Chore.MinimumMinutes}" />
         <Label Text="Maximum Minutes" FontSize="Medium"/>
-        <Label Text="{Binding Chore.MaximumMinutes}" />
+        <Label Text="{Binding Chore.Minutes}" />
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Chore.Description}" d:Text="Item description" FontSize="Small"/>
     </StackLayout>

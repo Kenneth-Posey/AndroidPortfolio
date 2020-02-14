@@ -57,7 +57,6 @@ namespace TimeForChorein.Models
         public DateTime DateLastModifed { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int MinimumMinutes { get; set; }
-        public int MaximumMinutes { get; set; }
+        public int Minutes { get; set; }
     }
 }

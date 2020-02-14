@@ -15,28 +15,22 @@ namespace TimeForChorein.Views
     [DesignTimeVisible(true)]
     public partial class EditChorePage : ContentPage
     {
-        public Chore Chore { get; set; }
         public EditChoreViewModel viewModel;
 
         public EditChorePage()
         {
             InitializeComponent();
 
-            Chore = new Chore
-            {
-                DateCreated = DateTime.Now,
-                DateLastModifed = DateTime.Now
-            };
+            viewModel = new EditChoreViewModel();
             Title = "Add Chore";
-            BindingContext = this;
+            BindingContext = viewModel;
         }
 
-        public EditChorePage(int? choreId)
+        public EditChorePage(Chore chore)
         {
             InitializeComponent();
 
-            viewModel = new EditChoreViewModel(choreId);
-            viewModel.LoadItemCommand.Execute(choreId);
+            viewModel = new EditChoreViewModel(chore);
             Title = "Edit Chore";
             BindingContext = viewModel;
         }
@@ -44,7 +38,7 @@ namespace TimeForChorein.Views
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "SaveChore", Chore);
+            MessagingCenter.Send(this, "SaveChore", viewModel.Chore);
             await Navigation.PopModalAsync();
         }
 
