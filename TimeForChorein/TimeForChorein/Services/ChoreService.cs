@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeForChorein.Enums;
 using TimeForChorein.Models;
 using TimeForChorein.Models.IModel;
 
@@ -25,7 +26,12 @@ namespace TimeForChorein.Services
 
         public async Task<IEnumerable<IChore>> GetAllChores()
         {
-            return await _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != Enums.ChoreStatus.Deleted).ToListAsync();
+            return await _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != ChoreStatus.Deleted).ToListAsync();
+        }
+
+        public async Task<IEnumerable<IChore>> GetActiveChores()
+        {
+            return await _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != ChoreStatus.Deleted && x.ChoreStatus != ChoreStatus.Completed).ToListAsync();
         }
 
         public IEnumerable<IChore> GetAllChoresNoAsync()

@@ -25,7 +25,7 @@ namespace TimeForChorein.Views
                 new HomeMenuItem {Id = MenuItemEntry.ChoreList, Title="Chores" },
                 new HomeMenuItem {Id = MenuItemEntry.AddNewChore, Title="Add Chore" },
                 new HomeMenuItem {Id = MenuItemEntry.Settings, Title="Settings" },
-                new HomeMenuItem {Id = MenuItemEntry.About, Title="About" }
+                // new HomeMenuItem {Id = MenuItemEntry.About, Title="About" }
             };
 
             ListViewMenu.ItemsSource = menuItems;

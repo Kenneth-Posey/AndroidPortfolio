@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Linq;
 using TimeForChorein.Enums;
 using TimeForChorein.Models.IModel;
 
@@ -18,11 +19,27 @@ namespace TimeForChorein.Models
            
         }
 
+        public Chore(Chore seedChore)
+        {
+            if (!string.IsNullOrWhiteSpace(seedChore?.Description))
+                this.Description = seedChore.Description;
+
+            if (!string.IsNullOrWhiteSpace(seedChore?.Name))
+                this.Name = seedChore.Name;
+
+            this.ChorePriority = seedChore.ChorePriority;
+            this.ChoreStatus = seedChore.ChoreStatus;
+            this.DateCreated = DateTime.Now;
+            this.DateLastModifed = DateTime.Now;
+            this.Minutes = seedChore.Minutes;
+        }
+
         public int? GetId()
         {
             return this.ChoreId;
         }
 
+        // magic glue to store enums in sqllite
         [Required]
         public virtual int ChorePriorityId
         {
@@ -37,7 +54,8 @@ namespace TimeForChorein.Models
         }
         [EnumDataType(typeof(ChorePriority))]
         public ChorePriority ChorePriority { get; set; }
-        
+
+        // magic glue to store enums in sqllite
         [Required]
         public virtual int ChoreStatusId
         {

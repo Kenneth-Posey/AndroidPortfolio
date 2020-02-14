@@ -9,8 +9,10 @@ namespace TimeForChorein.ViewModels
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        public string PopulateDataButtonText { get; set; } = "Click to load data";
+        public string PopulateDataButtonText { get; set; } = "Load test chores";
+        public string DeleteDataButtonText { get; set; } = "Delete all chores";
         public ICommand PopulateDataButton_Clicked { private set; get; }
+        public ICommand DeleteDataButton_Clicked { private set; get; }
 
         private string _updateMessage = "";
         public string UpdateMessage
@@ -31,6 +33,17 @@ namespace TimeForChorein.ViewModels
                 {
                     return true;
                 });
+
+            DeleteDataButton_Clicked = new Command(
+                execute: () =>
+                {
+                    DeleteChoreData();
+                    RefreshCanExecute();
+                },
+                canExecute: () =>
+                {
+                    return true;
+                });
         }
 
         public async void PopulateData()
@@ -41,7 +54,18 @@ namespace TimeForChorein.ViewModels
                 await _choreService.Save(chore);
             }
 
-            UpdateMessage = "Done!";
+            UpdateMessage = "Test chores loaded";
+        }
+
+        public async void DeleteChoreData()
+        {
+            var chores = await _choreService.GetAllChores();
+            foreach (var chore in chores)
+            {
+                await _choreService.Delete(chore);
+            }
+
+            UpdateMessage = "All chores deleted";
         }
 
         private void RefreshCanExecute()

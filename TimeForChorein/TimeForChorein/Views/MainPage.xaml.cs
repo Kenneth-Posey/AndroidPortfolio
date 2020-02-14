@@ -39,9 +39,10 @@ namespace TimeForChorein.Views
                     case MenuItemEntry.Settings:
                         MenuPages.Add(id, new NavigationPage(new SettingsPage()));
                         break;
-                    case MenuItemEntry.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
-                        break;
+                    // removing about for now
+                    // case MenuItemEntry.About:
+                    //     MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    //     break;
                 }
             }
 

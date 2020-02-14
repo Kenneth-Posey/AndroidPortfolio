@@ -14,6 +14,10 @@
                     Command="{Binding PopulateDataButton_Clicked}"
                     HorizontalOptions="FillAndExpand"
                     Text="{Binding PopulateDataButtonText}" />
+            <Button x:Name="DeleteDataButton"
+                    Command="{Binding DeleteDataButton_Clicked}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding DeleteDataButtonText}" />
             <Label Text="{Binding UpdateMessage}"                   
                    HorizontalOptions="CenterAndExpand"
                    FontSize="Large"/>
