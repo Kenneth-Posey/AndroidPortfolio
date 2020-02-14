@@ -25,10 +25,14 @@
         <Label Text="Chore Priority:" FontSize="Medium"/>
         <Label Text="{Binding Path=Chore.ChorePriority, Converter={x:StaticResource ToString}}" 
                d:Text="Chore Priority" FontSize="Small"/>
-        <Label Text="Maximum Minutes" FontSize="Medium"/>
+        <Label Text="Minutes to Complete" FontSize="Medium"/>
         <Label Text="{Binding Chore.Minutes}" />
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Chore.Description}" d:Text="Item description" FontSize="Small"/>
+        <Label Text="Repeatable chore" FontSize="Medium"/>
+        <Switch x:Name="RepeatableChoreSwitch" 
+                IsToggled="{Binding Chore.Repeatable}"
+                IsEnabled="False"/>
     </StackLayout>
     
 </ContentPage>

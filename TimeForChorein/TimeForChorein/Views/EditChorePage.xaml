@@ -30,6 +30,9 @@
             <Label Text="Description" FontSize="Medium" />
             <Editor Text="{Binding Chore.Description}" d:Text="Details about the chore" 
                     FontSize="Small" Margin="0" />
+            <Label Text="Repeatable Chore" FontSize="Medium"/>
+            <Switch x:Name="RepeatableChoreSwitch" 
+                    IsToggled="{Binding Chore.Repeatable}" />
         </StackLayout>
     </ContentPage.Content>
     

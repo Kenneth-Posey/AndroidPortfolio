@@ -20,7 +20,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "The kitties are definitely happier with this task being done than you are doing it",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = true
                 },
 
                 new Chore()
@@ -31,7 +32,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Glasses go on the top rack, plates on the bottom rack, flatware in the flatware rack",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -42,7 +44,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Be careful with the glasses and plates because they can be fragile",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -53,7 +56,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Fight the cat hair!",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -64,7 +68,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Books are more fun when not hidden behind a plume of dust",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -75,7 +80,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Autopay doesn't apply to everything and it's worthwhile to monitor it anyway",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -85,7 +91,8 @@ namespace TimeForChorein.Testing
                     Minutes = 20,
                     Description = "It's good to be able to see yourself",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -96,7 +103,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "The vaccuum cleaner will not thank you later but your sinuses will",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -107,7 +115,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Everything can't be vaccuumed and that's why we have old-school techniques",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -118,7 +127,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Clean clothes are lots of fun",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 },
 
                 new Chore()
@@ -129,7 +139,8 @@ namespace TimeForChorein.Testing
                     ChoreStatus = ChoreStatus.New,
                     Description = "Dry clean clothes are even more fun than clothes fresh out of the wash",
                     DateCreated = DateTime.Now,
-                    DateLastModifed = DateTime.Now
+                    DateLastModifed = DateTime.Now,
+                    Repeatable = false
                 }
             };
 

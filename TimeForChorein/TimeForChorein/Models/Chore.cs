@@ -32,6 +32,7 @@ namespace TimeForChorein.Models
             this.DateCreated = DateTime.Now;
             this.DateLastModifed = DateTime.Now;
             this.Minutes = seedChore.Minutes;
+            this.Repeatable = seedChore.Repeatable;
         }
 
         public int? GetId()
@@ -76,5 +77,6 @@ namespace TimeForChorein.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int Minutes { get; set; }
+        public bool Repeatable { get; set; }
     }
 }

@@ -35,7 +35,6 @@ namespace TimeForChorein.Views
             BindingContext = viewModel;
         }
 
-
         async void Save_Clicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(this, "SaveChore", viewModel.Chore);
@@ -45,8 +44,6 @@ namespace TimeForChorein.Views
         async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
-        }
-
-        
+        }        
     }
 }

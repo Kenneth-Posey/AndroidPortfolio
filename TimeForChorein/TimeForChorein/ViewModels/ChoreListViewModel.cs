@@ -24,6 +24,7 @@ namespace TimeForChorein.ViewModels
             MessagingCenter.Subscribe<EditChorePage, Chore>(this, "SaveChore", async (obj, item) =>
             {
                 var newItem = item as Chore;
+                newItem.DateLastModifed = DateTime.Now;
                 Items.Add(newItem);
                 await _choreService.Save(newItem);
             });
@@ -47,7 +48,7 @@ namespace TimeForChorein.ViewModels
             {
                 Items.Clear();
 
-                var items = await _choreService.GetAllChores();
+                var items = await _choreService.GetActiveChores();
                 foreach (var item in items)
                 {
                     Items.Add(item as Chore);

@@ -34,9 +34,9 @@ namespace TimeForChorein.Services
             return await _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != ChoreStatus.Deleted && x.ChoreStatus != ChoreStatus.Completed).ToListAsync();
         }
 
-        public IEnumerable<IChore> GetAllChoresNoAsync()
+        public IEnumerable<IChore> GetActiveChoresNoAsync()
         {
-            return _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != Enums.ChoreStatus.Deleted).ToListAsync().Result;
+            return _dataConnection.Table<Chore>().Where(x => x.ChoreStatus != Enums.ChoreStatus.Deleted && x.ChoreStatus != ChoreStatus.Completed).ToListAsync().Result;
         }
 
         public async Task<IChore> Get(IQueryable query)

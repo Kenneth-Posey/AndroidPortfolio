@@ -11,6 +11,7 @@ using TimeForChorein.Enums;
 using TimeForChorein.Models;
 using TimeForChorein.Models.IModel;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace TimeForChorein.ViewModels
 {
@@ -179,6 +180,13 @@ namespace TimeForChorein.ViewModels
                 execute: () =>
                 {
                     ChoreList.Remove(CurrentChore);
+
+                    if (CurrentChore.Repeatable)
+                    {
+                        var copyChore = new Chore(CurrentChore);
+                        _choreService.Save(copyChore);
+                    }
+
                     CurrentChore.ChoreStatus = ChoreStatus.Completed;
                     _choreService.Save(CurrentChore);
 
@@ -215,7 +223,7 @@ namespace TimeForChorein.ViewModels
             FinishChoreButtonVisible = true;
             CurrentChoreNameVisible = true;
 
-            var allChores = _choreService.GetAllChoresNoAsync() as List<Chore>;
+            var allChores = _choreService.GetActiveChoresNoAsync() as List<Chore>;
             var choreStillAvailable = true;
             var minutesRemaining = NumberOfSessionMinutes;
 

@@ -71,7 +71,7 @@
             <Label x:Name="StatusMessage"
                    Text="{Binding StatusMessageText}"
                    IsVisible="{Binding StatusMessageVisible}"
-                   HorizontalOptions="FillAndExpand"
+                   HorizontalOptions="CenterAndExpand"
                    VerticalOptions="Center"
                    FontSize="Title" />
         </StackLayout>
