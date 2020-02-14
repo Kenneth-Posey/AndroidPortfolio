@@ -8,7 +8,13 @@ namespace TimeForChorein.ViewModels
 {
     public class ChoreDetailViewModel : BaseViewModel
     {
-        public Chore Chore { get; set; }
+        private Chore _chore;
+        public Chore Chore
+        {
+            get { return _chore; }
+            set { SetProperty(ref _chore, value); }
+        }
+
         public ChoreDetailViewModel(Chore chore)
         {
             Chore = chore;

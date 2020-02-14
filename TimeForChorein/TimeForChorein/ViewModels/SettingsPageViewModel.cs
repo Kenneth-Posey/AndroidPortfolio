@@ -23,6 +23,8 @@ namespace TimeForChorein.ViewModels
 
         public SettingsPageViewModel()
         {
+            Title = "Testing and Settings";
+
             PopulateDataButton_Clicked = new Command(
                 execute: () =>
                 {

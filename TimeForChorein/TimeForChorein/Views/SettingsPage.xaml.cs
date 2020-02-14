@@ -12,15 +12,13 @@ namespace TimeForChorein.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
-        SettingsPageViewModel _viewModel;
+        SettingsPageViewModel viewModel;
 
         public SettingsPage()
         {
             InitializeComponent();
-
-            _viewModel = new SettingsPageViewModel();
-
-            BindingContext = _viewModel;           
+            
+            BindingContext = viewModel = new SettingsPageViewModel();
         }
     }
 }

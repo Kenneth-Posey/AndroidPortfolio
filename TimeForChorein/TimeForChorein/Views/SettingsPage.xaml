@@ -7,9 +7,6 @@
              x:Class="TimeForChorein.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Populate mock data"
-                   HorizontalOptions="CenterAndExpand"
-                   FontSize="Large" />
             <Button x:Name="PopulateDataButton"
                     Command="{Binding PopulateDataButton_Clicked}"
                     HorizontalOptions="FillAndExpand"

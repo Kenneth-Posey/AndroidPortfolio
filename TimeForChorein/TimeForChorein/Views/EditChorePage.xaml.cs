@@ -21,24 +21,22 @@ namespace TimeForChorein.Views
         {
             InitializeComponent();
 
-            viewModel = new EditChoreViewModel();
             Title = "Add Chore";
-            BindingContext = viewModel;
+            BindingContext = viewModel = new EditChoreViewModel();
         }
 
         public EditChorePage(Chore chore)
         {
             InitializeComponent();
 
-            viewModel = new EditChoreViewModel(chore);
             Title = "Edit Chore";
-            BindingContext = viewModel;
+            BindingContext = viewModel = new EditChoreViewModel(chore);
         }
 
         async void Save_Clicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(this, "SaveChore", viewModel.Chore);
-            await Navigation.PopModalAsync();
+            await Navigation.PushAsync(new NavigationPage(new ChoreListPage()));
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)

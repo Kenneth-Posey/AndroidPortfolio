@@ -18,9 +18,7 @@ namespace TimeForChorein.ViewModels
             get { return _chore; }
             set { SetProperty(ref _chore, value); }
         }
-
-        public ICommand LoadItemCommand { private set; get; }
-
+        
         public EditChoreViewModel()
         {
             Chore = new Chore()
@@ -28,13 +26,11 @@ namespace TimeForChorein.ViewModels
                 DateCreated = DateTime.Now,
                 DateLastModifed = DateTime.Now
             };
-
         }
 
         public EditChoreViewModel(Chore chore)
         {
             Chore = chore;
         }
-
     }
 }

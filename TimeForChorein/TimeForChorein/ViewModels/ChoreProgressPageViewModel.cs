@@ -17,8 +17,6 @@ namespace TimeForChorein.ViewModels
 {
     public class ChoreProgressPageViewModel : BaseViewModel
     {
-        public SessionStatus ChoreSessionStatus { get; set; } = SessionStatus.NewSession;
-        public int NumberOfSessionMinutes { get; set; } = 60;
         public string NumberOfSessionMinutesText { get; set; } = "Minutes for Chores:";
         public string StartSessionText { get; set; } = "Start Chorin'";
         public string PauseSessionText { get; set; } = "Take a Breather";
@@ -115,19 +113,19 @@ namespace TimeForChorein.ViewModels
         }
 
         #endregion
-
-        public List<Chore> ChoreList { get; set; } = new List<Chore>();
-
-        private Timer ChoreTimer { get; set; }
-
+        
         public ICommand StartSession_Clicked { private set; get; }
         public ICommand PauseSession_Clicked { private set; get; }
         public ICommand EndSession_Clicked { private set; get; }
         public ICommand ContinueSession_Clicked { private set; get; }
         public ICommand FinishCurrentChore_Clicked { private set; get; }
-        
+
+        public List<Chore> ChoreList { get; set; } = new List<Chore>();
+        private Timer ChoreTimer { get; set; }
+        public SessionStatus ChoreSessionStatus { get; set; } = SessionStatus.NewSession;
         private int TimeRemaining { get; set; }
-               
+        public int NumberOfSessionMinutes { get; set; } = 60;
+
         public ChoreProgressPageViewModel()
         {
             Title = "Time for Chorin'";
@@ -182,10 +180,7 @@ namespace TimeForChorein.ViewModels
                     ChoreList.Remove(CurrentChore);
 
                     if (CurrentChore.Repeatable)
-                    {
-                        var copyChore = new Chore(CurrentChore);
-                        _choreService.Save(copyChore);
-                    }
+                        _choreService.Save(new Chore(CurrentChore));
 
                     CurrentChore.ChoreStatus = ChoreStatus.Completed;
                     CurrentChore.DateLastModifed = DateTime.Now;
