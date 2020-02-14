@@ -69,6 +69,12 @@
                     IsVisible="{Binding FinishChoreButtonVisible}"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="Center" />
+            <Label x:Name="StatusMessage"
+                   Text="{Binding StatusMessageText}"
+                   IsVisible="{Binding StatusMessageVisible}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   FontSize="Title" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -26,6 +26,20 @@ namespace TimeForChorein.ViewModels
         public string FinishChoreButtonText { get; set; } = "Finish Current Chore";
 
         #region INotify Properties
+        private string _statusMessageText = "";
+        public string StatusMessageText
+        {
+            get { return _statusMessageText; }
+            set { SetProperty(ref _statusMessageText, value); }
+        }
+
+        private bool _statusMessageTextVisible = false;
+        public bool StatusMessageTextVisible
+        {
+            get { return _statusMessageTextVisible; }
+            set { SetProperty(ref _statusMessageTextVisible, value); }
+        }
+
         private bool _numberOfSessionMinutesLabelVisible = true;
         public bool SessionMinutesLabelVisible
         {
@@ -110,9 +124,7 @@ namespace TimeForChorein.ViewModels
         public ICommand EndSession_Clicked { private set; get; }
         public ICommand ContinueSession_Clicked { private set; get; }
         public ICommand FinishCurrentChore_Clicked { private set; get; }
-
-        private bool ButtonLock { get; set; } = false;
-
+        
         private int TimeRemaining { get; set; }
                
         public ChoreProgressPageViewModel()
@@ -170,12 +182,7 @@ namespace TimeForChorein.ViewModels
                     CurrentChore.ChoreStatus = ChoreStatus.Completed;
                     _choreService.Save(CurrentChore);
 
-                    if (ChoreList.Count > 1)
-                        CurrentChore = ChoreList[0];
-                    else
-                    {
-                        // trigger finishing all chores here
-                    }
+                    UpdateCurrentChore();
                 },
                 canExecute: () =>
                 {
@@ -190,8 +197,6 @@ namespace TimeForChorein.ViewModels
             (ContinueSession_Clicked as Command).ChangeCanExecute();
             (EndSession_Clicked as Command).ChangeCanExecute();
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private void StartSession()
         {
@@ -243,7 +248,14 @@ namespace TimeForChorein.ViewModels
 
         private void UpdateCurrentChore()
         {
-            CurrentChore = ChoreList.FirstOrDefault();        
+            if (ChoreList.Count > 0)
+            {
+                CurrentChore = ChoreList.FirstOrDefault();
+            }
+            else
+            {
+                EndSession();
+            }
         }
 
         private void PauseSession()
@@ -264,6 +276,14 @@ namespace TimeForChorein.ViewModels
         {
             ChoreSessionStatus = SessionStatus.Complete;
             ChoreTimer.Stop();
+
+            StatusMessageText = "All done!";
+            StatusMessageTextVisible = true;
+
+            FinishChoreButtonVisible = false;
+            CurrentChoreNameVisible = false;
+            TimerValueVisible = false;
+
             UpdateSessionButtons();
         }
 
@@ -290,6 +310,5 @@ namespace TimeForChorein.ViewModels
                     break;
             }
         }
-
     }
 }
