@@ -188,6 +188,7 @@ namespace TimeForChorein.ViewModels
                     }
 
                     CurrentChore.ChoreStatus = ChoreStatus.Completed;
+                    CurrentChore.DateLastModifed = DateTime.Now;
                     _choreService.Save(CurrentChore);
 
                     UpdateCurrentChore();
